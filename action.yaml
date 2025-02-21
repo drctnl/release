@@ -8,7 +8,13 @@ inputs:
     description: 'Prefix for the version'
     default: "v"
   github-token:
+    required: true
     description: 'PAT or GITHUB_TOKEN to access release information'
+  pre-release:
+    description: 'pre release identifier'
+  fail:
+    description: 'Whether to fail if the release'
+    default: "true"
 
 outputs:
   version:

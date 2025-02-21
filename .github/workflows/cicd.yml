@@ -2,7 +2,7 @@ name: CI/CD
 
 on:
   push:
-    branches: [ "master" ]
+    branches: ["master"]
 
 jobs:
   build:
@@ -16,3 +16,5 @@ jobs:
         uses: docker/build-push-action@v6
       - name: Release
         uses: drctnl/release@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
