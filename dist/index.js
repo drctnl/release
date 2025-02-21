@@ -23882,7 +23882,11 @@ async function run() {
     core.info(`Will read version from '${path}'`);
     core.info(`Releases will be prefixed with '${prefix}'`);
     const currentVersion = await readVersion(path);
-    const outputVersion = await updateOrCreateRelease(currentVersion, prefix, githubToken);
+    const outputVersion = await updateOrCreateRelease(
+      currentVersion,
+      prefix,
+      githubToken
+    );
     core.setOutput("version", outputVersion);
   } catch (error) {
     core.setFailed(error.message);
@@ -23895,9 +23899,7 @@ async function readVersion(path) {
   return content.trim();
 }
 async function updateOrCreateRelease(version, prefix, preReleaseIdentifier, githubToken) {
-  const kit = github.getOctokit(githubToken, {
-    "userAgent": "github-actions-release"
-  });
+  const kit = github.getOctokit(githubToken);
   const releaseName = `${prefix}${version}`;
   let tagName = preReleaseIdentifier ? `${releaseName}-${preReleaseIdentifier}` : releaseName;
   const releases = (await kit.rest.repos.listReleases({
