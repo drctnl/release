@@ -19694,7 +19694,7 @@ var require_core = __commonJS({
       return inputs.map((input) => input.trim());
     }
     exports2.getMultilineInput = getMultilineInput;
-    function getBooleanInput(name, options) {
+    function getBooleanInput2(name, options) {
       const trueValue = ["true", "True", "TRUE"];
       const falseValue = ["false", "False", "FALSE"];
       const val = getInput2(name, options);
@@ -19705,7 +19705,7 @@ var require_core = __commonJS({
       throw new TypeError(`Input does not meet YAML 1.2 "Core Schema" specification: ${name}
 Support boolean input list: \`true | True | TRUE | false | False | FALSE\``);
     }
-    exports2.getBooleanInput = getBooleanInput;
+    exports2.getBooleanInput = getBooleanInput2;
     function setOutput2(name, value) {
       const filePath = process.env["GITHUB_OUTPUT"] || "";
       if (filePath) {
@@ -23880,6 +23880,7 @@ async function run() {
     const path = core.getInput("path", { trimWhitespace: true });
     const prefix = core.getInput("prefix", { trimWhitespace: true });
     const preRelease = core.getInput("pre-release", { trimWhitespace: true });
+    const fail = core.getBooleanInput("fail", { trimWhitespace: true });
     core.info(`Will read version from '${path}'`);
     core.info(`Releases will be prefixed with '${prefix}'`);
     const currentVersion = await readVersion(path);
