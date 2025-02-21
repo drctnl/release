@@ -2,9 +2,10 @@ changelog:
   exclude:
     labels:
       - ignore-for-release
-    authors:
-      - octocat
   categories:
+    - title: Bugfixes
+      labels:
+        - bugfix
     - title: Breaking Changes 🛠
       labels:
         - Semver-Major
@@ -16,3 +17,4 @@ changelog:
     - title: Other Changes
       labels:
         - "*"
+  
