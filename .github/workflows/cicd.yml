@@ -6,6 +6,7 @@ on:
 
 jobs:
   build:
+    name: Build, "Test"
     runs-on: ubuntu-latest
 
     steps:
@@ -14,7 +15,7 @@ jobs:
         uses: docker/setup-buildx-action@v3
       - name: Build
         uses: docker/build-push-action@v6
-      - name: Release
+      - name: Manage release
         uses: drctnl/release@master
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ github.token }}
