@@ -1,4 +1,4 @@
-name: Release
+name: Maintain semantic version releases
 description: Manages version based on GitHub release and validates against it
 inputs:
   path:
