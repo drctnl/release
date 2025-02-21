@@ -31,5 +31,5 @@ outputs:
     description: 'Version of the release'
 
 runs:
-  using: 'docker'
-  image: 'Dockerfile'
+  using: 'node20'
+  main: "dist/index.js"

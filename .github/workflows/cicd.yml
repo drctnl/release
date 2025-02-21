@@ -11,11 +11,17 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-      - name: Build
-        uses: docker/build-push-action@v6
-      - name: Manage release
-        uses: drctnl/release@master
+      - uses: actions/setup-node@v2
         with:
-          github-token: ${{ github.token }}
+          node-version: "20"
+      - name:
+        run: npm ci
+      - name: Build
+        run: npm run build
+      - name: Commit and push distribution changes
+        run: |
+          git config --global user.name "CI/CD"
+          git config --global user.email "drctnl@users.noreply.github.com"
+          git commit -a -m "Updated distribution of action." && git push || true
+
+      - uses: drctnl/release@master
