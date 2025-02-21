@@ -8,6 +8,7 @@ export async function run() {
     const path = core.getInput("path", { trimWhitespace: true });
     const prefix = core.getInput("prefix", { trimWhitespace: true });
     const preRelease = core.getInput("pre-release", { trimWhitespace: true });
+    const fail = core.getBooleanInput("fail", { trimWhitespace: true });
 
     core.info(`Will read version from '${path}'`);
     core.info(`Releases will be prefixed with '${prefix}'`);

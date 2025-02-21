@@ -23,7 +23,7 @@ inputs:
   pre-release:
     description: 'pre release identifier'
   fail:
-    description: 'Whether to fail if the release'
+    description: 'Unused currently ...'
     default: "true"
 
 outputs:
