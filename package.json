@@ -14,9 +14,11 @@
     "@actions/core": "^1.11.1",
     "@actions/exec": "^1.1.1",
     "@actions/github": "^6.0.0",
-    "@actions/glob": "^0.5.0"
+    "@actions/glob": "^0.5.0",
+    "fs": "^0.0.1-security"
   },
   "devDependencies": {
+    "@types/node": "^22.13.4",
     "esbuild": "0.25.0"
   }
 }

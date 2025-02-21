@@ -5,8 +5,9 @@ import * as fs from "fs";
 export async function run() {
   try {
     const githubToken = core.getInput("token", { required: true });
-    const path = core.getInput("path");
-    const prefix = core.getInput("prefix");
+    const path = core.getInput("path", { trimWhitespace: true });
+    const prefix = core.getInput("prefix", { trimWhitespace: true });
+    const preRelease = core.getInput("pre-release", { trimWhitespace: true });
 
     core.info(`Will read version from '${path}'`);
     core.info(`Releases will be prefixed with '${prefix}'`);
@@ -15,6 +16,7 @@ export async function run() {
     const outputVersion = await updateOrCreateRelease(
       currentVersion,
       prefix,
+      preRelease || false,
       githubToken
     );
 
