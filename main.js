@@ -12,10 +12,13 @@ export async function run() {
     core.info(`Releases will be prefixed with '${prefix}'`);
 
     const currentVersion = await readVersion(path);
-    const outputVersion = await updateOrCreateRelease(currentVersion, prefix, githubToken);
+    const outputVersion = await updateOrCreateRelease(
+      currentVersion,
+      prefix,
+      githubToken
+    );
 
     core.setOutput("version", outputVersion);
-
   } catch (error) {
     core.setFailed(error.message);
     core.debug(error.stack);
@@ -28,21 +31,27 @@ async function readVersion(path) {
   return content.trim();
 }
 
-async function updateOrCreateRelease(version, prefix, preReleaseIdentifier, githubToken) {
-  const kit = github.getOctokit(githubToken, {
-    "userAgent": "github-actions-release",
-  });
+async function updateOrCreateRelease(
+  version,
+  prefix,
+  preReleaseIdentifier,
+  githubToken
+) {
+  const kit = github.getOctokit(githubToken);
 
   const releaseName = `${prefix}${version}`;
-  let tagName = preReleaseIdentifier ? `${releaseName}-${preReleaseIdentifier}` : releaseName;
+  let tagName = preReleaseIdentifier
+    ? `${releaseName}-${preReleaseIdentifier}`
+    : releaseName;
 
-  const releases = (await kit.rest.repos.listReleases({
-    owner: github.context.repo.owner,
-    repo: github.context.repo.repo,
-    page: 1,
-    per_page: 30,
-  }))?.data;
-
+  const releases = (
+    await kit.rest.repos.listReleases({
+      owner: github.context.repo.owner,
+      repo: github.context.repo.repo,
+      page: 1,
+      per_page: 30,
+    })
+  )?.data;
 
   let release = releases.find((r) => r.tag_name == tagName);
 
@@ -81,8 +90,6 @@ async function updateOrCreateRelease(version, prefix, preReleaseIdentifier, gith
       target_commitish: github.context.sha,
     });
   }
-
-
 
   return `${tagName}+${github.context.sha}`;
 }
