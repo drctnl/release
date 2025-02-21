@@ -1,0 +1,19 @@
+name: Release
+description: Manages version based on GitHub release and validates against it
+inputs:
+  path:
+    description: 'Path to file containing the version'
+    default: "VERSION"
+  prefix:
+    description: 'Prefix for the version'
+    default: "v"
+  github-token:
+    description: 'PAT or GITHUB_TOKEN to access release information'
+
+outputs:
+  version:
+    description: 'Version of the release'
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
