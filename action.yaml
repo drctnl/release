@@ -1,4 +1,7 @@
 name: Maintain semantic version releases
+branding:
+  icon: folder
+  color: green
 description: Manages version based on GitHub release and validates against it
 inputs:
   path:
