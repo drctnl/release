@@ -68,13 +68,21 @@ async function updateOrCreateRelease(
     return tagName;
   }
 
+  const notes = await kit.rest.repos.generateReleaseNotes({
+    tag_name: tagName,
+    owner: github.context.repo.owner,
+    repo: github.context.repo.repo,
+    target_commitish: github.context.sha,
+  });
+
   if (!release) {
     core.info(`Creating release ${releaseName}`);
 
     const response = await kit.rest.repos.createRelease({
-      name: releaseName,
+      name: notes.data.name,
       owner: github.context.repo.owner,
       repo: github.context.repo.repo,
+      body: notes.data.body,
       tag_name: tagName,
       prerelease: !!preReleaseIdentifier,
       draft: true,
@@ -85,6 +93,8 @@ async function updateOrCreateRelease(
     core.info(`Updating release ${releaseName}`);
 
     await kit.rest.repos.updateRelease({
+      name: notes.data.name,
+      body: notes.data.body,
       release_id: release.id,
       owner: github.context.repo.owner,
       prerelease: !!preReleaseIdentifier,
