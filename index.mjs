@@ -4,16 +4,12 @@ import * as fs from "fs";
 
 export async function run() {
   try {
-    const githubToken = core.getInput("github-token") || process.env.GITHUB_TOKEN;
+    const githubToken = core.getInput("token", { required: true });
     const path = core.getInput("path");
     const prefix = core.getInput("prefix");
 
     core.info(`Will read version from '${path}'`);
     core.info(`Releases will be prefixed with '${prefix}'`);
-
-    if (!githubToken) {
-      throw new Error("Missing github-token input.");
-    }
 
     const currentVersion = await readVersion(path);
     const outputVersion = await updateOrCreateRelease(currentVersion, prefix, githubToken);
