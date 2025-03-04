@@ -23951,7 +23951,7 @@ async function updateOrCreateRelease(version, prefix, preReleaseIdentifier, gith
       target_commitish: github.context.sha
     });
   }
-  return `${tagName}+${github.context.sha}`;
+  return `${tagName}+${github.context.sha.substring(0, 7)}`;
 }
 
 // index.js
