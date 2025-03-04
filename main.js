@@ -104,5 +104,5 @@ async function updateOrCreateRelease(
     });
   }
 
-  return `${tagName}+${github.context.sha}`;
+  return `${tagName}+${github.context.sha.substring(0, 7)}`;
 }
